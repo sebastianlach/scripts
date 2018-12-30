@@ -1,12 +1,13 @@
 #!/bin/sh
 
 fallocate -l 1M /tmp/sysboot.img0
-dd bs=440 count=1 conv=notrunc if=/usr/lib/syslinux/bios/mbr.bin of=/tmp/sysboot.img0
+dd if=/usr/lib/syslinux/bios/mbr.bin of=/tmp/sysboot.img0 bs=440 count=1 conv=notrunc
 
 fallocate -l 1023M /tmp/sysboot.img1
 mkfs.vfat -F 32 -n BOOT /tmp/sysboot.img1
 mmd -i /tmp/sysboot.img1 ::syslinux
 mcopy -i /tmp/sysboot.img1 /usr/lib/syslinux/bios/*.c32 ::syslinux/
+mcopy -i /tmp/sysboot.img1 /usr/lib/syslinux/bios/memdisk ::syslinux/
 mcopy -i /tmp/sysboot.img1 /boot/syslinux/syslinux.cfg ::syslinux/
 mcopy -i /tmp/sysboot.img1 /boot/syslinux/splash.png ::syslinux/
 syslinux --directory syslinux --install /tmp/sysboot.img1
