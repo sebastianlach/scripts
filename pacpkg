@@ -1,3 +1,2 @@
 #!/bin/sh
-pacman -Qeq | xargs -I{} pacsearch -n "^{}$" | sed -n 'p;n' | \
-    grep "\[installed\]" | cut -d ' ' -f1-2 | grep -v '^local/' |  sort
+pacman -Qeqn | xargs pacman -Q
