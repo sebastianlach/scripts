@@ -1,2 +1,2 @@
 #!/bin/sh
-pacman -Qeqn | xargs pacman -Q
+pacman -Qeqn
